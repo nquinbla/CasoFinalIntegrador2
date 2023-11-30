@@ -67,7 +67,10 @@ void load_script(const char* filename, bool show_script = false) // función de 
         cerr << "error durante la lectura del archivo" << endl; // error de lectura
         if(f)
             fclose(f); // cierre de archivo
-    }
+
+    }  cerr << "Error desconocido durante la lectura del archivo" << endl;
+        if (f)
+            fclose(f); // cierre de archivo
 }
 
 void load_script() // función de carga de script
