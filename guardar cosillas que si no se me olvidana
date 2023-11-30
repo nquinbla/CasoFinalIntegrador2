@@ -1,0 +1,3 @@
+cerr << "Error desconocido durante la lectura del archivo" << endl;
+         if (f)
+             fclose(f); // cierre de archivo
