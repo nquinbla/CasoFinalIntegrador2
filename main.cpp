@@ -25,7 +25,7 @@ struct ColorConsole // no se puede modificar
 struct ConsoleBox
 {
     void new_text() {/*...*/}
-    void set_text(const string &text) { cout << text << endl; }
+    static void set_text(const string &text) { cout << text << endl; }
 };
 
 ConsoleBox *consoleBox = new ConsoleBox; // suponemos que ya está inicializado
@@ -51,6 +51,14 @@ void load_script(const char* filename, bool show_script = false) // función de 
             buf[c] = 0; // terminador de cadena
             script.append(buf); // concatenación de cadena
         }
+
+        if(ferror(f)) // error de lectura
+        {
+            perror("error de lectura de archivo"); // error de lectura de archivo
+            cerr << "error de lectura de " << filename << endl; // error de lectura de archivo
+            return;
+        }
+
         fclose(f); // cierre de archivo
         f = nullptr; // puntero nulo
 
@@ -60,15 +68,11 @@ void load_script(const char* filename, bool show_script = false) // función de 
             cout << script << endl; // impresión de script
         }
         consoleBox->new_text(); // nueva línea
-        consoleBox->set_text(script); // impresión de script
+        ConsoleBox::set_text(script); // impresión de script
     }
     catch (...) // excepción
     {
         cerr << "error durante la lectura del archivo" << endl; // error de lectura
-        if (f)
-            fclose(f); // cierre de archivo
-
-        cerr << "Error desconocido durante la lectura del archivo" << endl;
         if (f)
             fclose(f); // cierre de archivo
     }
@@ -82,10 +86,11 @@ void load_script() // función de carga de script
     load_script(filename.c_str(), true); // llamada a función de carga de script
 }
 
-int main()
+int main() // función principal
 {
-    load_script();
+    load_script(); // llamada a función de carga de script
+
+    cout << "La tarta estaba muy rica" << endl;
     return 0;
 }
-
 
