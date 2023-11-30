@@ -39,6 +39,7 @@ void load_script(const char* filename, bool show_script = false) // función de 
         f = fopen(filename, "rb");
         if (!f)
         {
+            perror("error de apertura de archivo"); // error de apertura de archivo
             cerr << "error de apertura de " << filename << endl; // error de apertura de archivo
             return;
         }
