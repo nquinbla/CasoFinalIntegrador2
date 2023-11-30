@@ -70,6 +70,13 @@ void load_script(const char* filename, bool show_script = false) // función de 
         consoleBox->new_text(); // nueva línea
         ConsoleBox::set_text(script); // impresión de script
     }
+    catch (const exception& e) // excepción
+    {
+        cerr << "error durante la lectura del archivo" << endl; // error de lectura
+        if (f)
+            fclose(f); // cierre de archivo
+    }
+
     catch (...) // excepción
     {
         cerr << "error durante la lectura del archivo" << endl; // error de lectura
@@ -78,7 +85,7 @@ void load_script(const char* filename, bool show_script = false) // función de 
     }
 }
 
-void load_script() // función de carga de script
+void load_script_from_user() // función de carga de script
 {
     string filename; // nombre de archivo
     cout << "Ingrese el nombre del archivo: "; // mensaje
@@ -88,7 +95,7 @@ void load_script() // función de carga de script
 
 int main() // función principal
 {
-    load_script(); // llamada a función de carga de script
+    load_script_from_user(); // llamada a función de carga de script
 
     cout << "La tarta estaba muy rica" << endl;
     return 0;
